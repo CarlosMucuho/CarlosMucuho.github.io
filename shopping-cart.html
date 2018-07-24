@@ -11,7 +11,31 @@
 </head>
 <body>
 	<main class="page ">
+
+ 
+
 	 	<section class="shopping-cart dark ">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-primary ">
+        <a class="navbar-brand" href="index.html">Home</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" ">
+            <span class="navbar-toggler-icon "></span>
+        </button>
+        <div class="collapse navbar-collapse " " id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <!-- <li class="nav-item active">
+                    <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+                </li> -->
+                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+  <label class="btn btn-primary active " onclick="ChooseNotifyMethod(0)">
+    <input type="radio" name="options" id="option1" autocomplete="off" checked >Pusher
+  </label>
+  <label class="btn btn-primary" onclick="ChooseNotifyMethod(1);">
+    <input type="radio" name="options" id="option2" autocomplete="off" >Stellar
+  </label>
+  
+</div>
+                </div>
+    </nav>
 	 		<div class="container ">
 		        <div class="block-heading ">
 		          <h2>Shopping Cart</h2>
@@ -42,8 +66,18 @@
     <section class="payment-form dark ">
         <div class="block-heading ">
           <h2>Pay with stellar</h2>
+
+               <button id="btnGenerateQr" class="btn btn-primary" style="margin-bottom:20px" >Generate QR Code</button>
+                <div class="qrSection" style="margin-bottom:20px">
+              <div id="demo" color="green " style="margin-bottom:20px"></div>
+              <div id="qrcode"  style="margin-bottom:10px"></div>
+              </div>
+           
+            
+
+         </div>
         </div>
-        <form>
+       <!--  <form>
           <div class="card-details ">
             <h3 class="title ">Account Details</h3>
             <div class="row ">
@@ -58,17 +92,8 @@
                
            		 </div>
          		 </div>
-      		  </form>
-			<div class="form-group col-sm-5 " text-align="left" style="margin-left: 25px">
-               <button id="btnGenerateQr" class="btn btn-primary" style="margin-bottom:20px" >Generate QR Code</button>
-                <div class="qrSection" style="margin-bottom:20px">
-              <div id="demo" color="green " style="margin-bottom:20px"></div>
-              <div id="qrcode"  style="margin-bottom:10px"></div>
-              </div>
-              </div>
-            
-
-     		 </div>
+      		  </form> -->
+			
     		</section>
 
   			</div>
@@ -83,6 +108,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js "></script>
 <script src="https://js.pusher.com/4.1/pusher.min.js "></script>
 <script type="text/javascript " src="js/jquery-qrcode-master/jquery.qrcode.min.js "></script>
+<script type="text/javascript " src="stellar-sdk.js "></script>
 <script src='decimal.js'></script>
 <script type="text/javascript " src="shopping-cart.js "></script>
 </body>

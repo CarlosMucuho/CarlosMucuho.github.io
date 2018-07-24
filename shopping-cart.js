@@ -8,7 +8,8 @@ const itemsList = [
     { id: "product-7", name: "Vanilla Ice Cream", price: 2.3, hash: "4faaa3caf2fb01696f558f95c5fd9e64645e2ef331496a41f21aa2b8732e237a", quantity: 1 },
     { id: "product-8", name: "Chocolate Ice Cream", price: 2.3, hash: "84d740cb3d225c81a41c9d0fd1fc76e80d5e7f8526c30b340ba48739c26f6f2b", quantity: 1 }
 ]
-
+console.log(StellarSdk);
+var notifyMethodNr = 0;
 
 var obj = sessionStorage.myObject;
 console.log("out if " + obj);
@@ -105,7 +106,7 @@ function GenerateQrCode() {
 
 
 
-    document.getElementById("demo").innerHTML = "Working";
+    document.getElementById("demo").innerHTML = "Please wait ...";
 
     var to = "";
     var data = "";
@@ -121,25 +122,25 @@ function GenerateQrCode() {
         itemsQuantity.push(cartList[i].quantity);
     }
 
-    
-   
-// Here we are not sending the amount to the server, 
-// because any user can edit this document and replace the amount.
 
-// But if we send the hash we got when storing the product details 
-// in the ledger we ensure that the amount is valid because only
-// the owner of the  account used to send the transaction
-// can create the trasanctions.
+
+    // Here we are not sending the amount to the server, 
+    // because any user can edit this document and replace the amount.
+
+    // But if we send the hash we got when storing the product details 
+    // in the ledger we ensure that the amount is valid because only
+    // the owner of the  account used to send the transaction
+    // can create the trasanctions.
 
 
     var appId = "25061975";
     var hash = itemsHash.toString();
     var quantity = itemsQuantity.toString();
-    
 
 
-    var url = " https://wtj2pz7f74.execute-api.us-east-1.amazonaws.com/Test/generatememo?appId=" + appId + "&itemHash=" +
-        hash + "&itemQuantity=" + quantity;
+
+    var url = "https://wtj2pz7f74.execute-api.us-east-1.amazonaws.com/Test/generatememo?appId=" + appId + "&itemHash=" +
+        hash + "&itemQuantity=" + quantity+"&notifyMethodNr="+notifyMethodNr.toString();
 
 
 
@@ -151,7 +152,7 @@ function GenerateQrCode() {
             // {"memoId":"P2018627522567784806","remainingTime":"34452"}
             if (this.responseText !== "") {
                 var obj = JSON.parse(this.responseText);
-                document.getElementById("demo").innerHTML =" transactionId:" + obj.transactionId + " duration: " + obj.duration +" ms";
+                document.getElementById("demo").innerHTML = " transactionId:" + obj.transactionId + " duration: " + obj.duration + " ms";
 
                 tId = String(obj.transactionId);
                 amount = String(obj.amount);
@@ -168,20 +169,14 @@ function GenerateQrCode() {
 
                     jQuery('#qrcode').qrcode({ width: 180, height: 180, text: data });
 
-                    Pusher.logToConsole = true;
-                    var room = 'f34be8d0ab5fe201cd6e';
-                    var pusher = new Pusher(room, {
-                        wsHost: 'ws.pusherapp.com',
-                        httpHost: 'sockjs.pusher.com',
-                        encrypted: true
-                    });
-                    tId = String(obj.transactionId);
-                    var channel = pusher.subscribe(tId + '-channel');
-                    channel.bind('my-event', function(data) {
-                        //   alert(data.message);
-                        location.href = "confirmation.html"
+                    if(notifyMethodNr===0){
+                        ListenForConfirmationWithPusher(obj.transactionId);
+                    }else{
+                        ListenForConfirmationWithStellar(obj.transactionId);
+                    }
+                    
+                    
 
-                    });
                 }
                 y++;
             }
@@ -200,6 +195,67 @@ var btnGenerate = document.getElementById("btnGenerateQr");
 btnGenerate.addEventListener('click', function() {
     GenerateQrCode();
 
-
-
 });
+
+
+
+function ListenForConfirmationWithPusher(transactionId) {
+
+    Pusher.logToConsole = true;
+    var room = 'f34be8d0ab5fe201cd6e';
+    var pusher = new Pusher(room, {
+        wsHost: 'ws.pusherapp.com',
+        httpHost: 'sockjs.pusher.com',
+        encrypted: true
+    });
+    tId = String(obj.transactionId);
+    var channel = pusher.subscribe(transactionId + '-channel');
+    channel.bind('my-event', function(data) {
+        //   alert(data.message);
+        location.href = "confirmation.html"
+
+    });
+}
+
+
+
+
+
+function ListenForConfirmationWithStellar(transactionId) {
+    StellarSdk.Network.useTestNetwork();
+    var server = new StellarSdk.Server('https://horizon-testnet.stellar.org');
+
+    var server = new StellarSdk.Server('https://horizon-testnet.stellar.org');
+    var accountId = 'GDT22UIAFVVQOENQD3PHFKBTEUE4XBCXSWQVYTKVWBY2CIAGKUAK6AW5';
+
+    // Create an API call to query transactions involving the account.
+    var trasanctions = server.transactions().forAccount(accountId);
+
+
+    trasanctions.stream({
+        onmessage: function(payment) {
+
+
+
+            if (payment.source_account === accountId) {
+                return;
+            }
+
+            console.log(JSON.stringify(payment));
+            if (payment.memo === transactionId) {
+                location.href = "confirmation.html";
+            }
+        },
+
+        onerror: function(error) {
+            console.error('Error in payment stream');
+        }
+    });
+
+
+}
+
+function ChooseNotifyMethod(nr){
+    notifyMethodNr = nr;
+    console.log(notifyMethodNr);
+}

@@ -42,3 +42,6 @@
  divTotal.setAttribute("class", "total");
  divTotal.innerHTML = 'Total<span class="price">' + total + ' XLM</span>'
  divzero.appendChild(divTotal);
+
+
+ sessionStorage.clear();

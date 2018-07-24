@@ -10,15 +10,7 @@ const itemsList = [
                 {id:"product-8",name:"Chocolate Ice Cream",price:2.3,hash:"84d740cb3d225c81a41c9d0fd1fc76e80d5e7f8526c30b340ba48739c26f6f2b",quantity : 1}
 ]
 
-
-var cartList=[];
-
-
-
-
-
-
-
+var cartList=[]; // is a list of items that were added to cart
 var i = 0;
 var divZero = document.getElementById("grid");
 
@@ -43,11 +35,8 @@ divZero.appendChild(div);
 gridButtons = document.getElementsByClassName('btn btn-primary btnItem');
 gridButtonItems = [].slice.call(gridButtons);
 
-var x = 0;
-for( x= 0;x<7;x++){
- //   console.log(gridButtons[x]) ; 
 
-}
+
 
 
    gridButtonItems.forEach(function (btn) {
@@ -57,13 +46,12 @@ for( x= 0;x<7;x++){
             if(name.includes("btnAddToCart")){
               var temp= name.replace("btnAddToCart","");
               var btnId = parseInt(temp);
-              AddAndSave(btnId);
+              AddToCart(btnId);
               flyToCart(btnId);
             }else{
               var temp= name.replace("btnBuy","");
               var btnId = parseInt(temp);
-              AddAndSave(btnId);
-              GoToCart();
+              AddToCart(btnId);
               SaveCart();
             }
 
@@ -72,41 +60,34 @@ for( x= 0;x<7;x++){
     });
 
 
-function AddAndSave(btnId){
-  console.log(btnId);
-  AddToCart(btnId);
-  
-}
 
 
 function AddToCart(btnId){
- var btnId = btnId;
+
 var cartListLenght = Object.keys(cartList).length;
- //console.log("Cart lenght is " + Object.keys(cartList).length);
+var itemIsInTheCart = false;
+var item = itemsList[btnId];
+var i = -1;
+
   if(cartListLenght>0){
-    // console.log("cart isnt empty");
-     var item = itemsList[btnId];
-     console.log("id is"+ btnId);
+    
+     
+     // console.log("id is"+ btnId);
      var found = SearchCart(cartListLenght,item.name);
-     console.log("lenght is "+cartListLenght);
-     console.log(found[0]+" " + found[1]);
+     // console.log("lenght is "+cartListLenght);
+     // console.log(found[0]+" " + found[1]);
 
      if(found[0]){
+       i = found[1];
        cartList[found[1]].quantity +=1;
         console.log("adding +1 "+ item.name);
-
+       itemIsInTheCart = found[0]
 
 
      }else{
        cartList.push(item); 
         console.log("adding "+ item.name);
 
-       var divCart = document.getElementById('dropdown-menu');
-       console.log("div cart " + divCart);
-       var div = document.createElement("div");
-       div.innerHTML = '<a  id="product-1" class="dropdown-item" href="#">'+ item.name +'  x  1'+ '</a>'
-          +'<div class="dropdown-divider"></div>'
-       divCart.appendChild(div);
 
 
       
@@ -116,14 +97,10 @@ var cartListLenght = Object.keys(cartList).length;
     console.log("cart is empty");
     console.log(itemsList[btnId]);
     cartList.push(itemsList[btnId]);
-    var divCart = document.getElementById('dropdown-menu');
-       console.log("div cart " + divCart);
-       var div = document.createElement("div");
-       div.innerHTML = '<a  id="product-1" class="dropdown-item" href="#">'+ itemsList[btnId].name +'  x  1'+ '</a>'
-          +'<div class="dropdown-divider"></div>'
-       divCart.appendChild(div);
+   
 
   }
+  AddItemsToDropDownMenu(i,item, itemIsInTheCart);
 
  
 }
@@ -145,10 +122,38 @@ function SearchCart(cartListLenght,itemName){
 }
 
 
-function SaveCart(){
-  sessionStorage.myObject = JSON.stringify(cartList);
-  console.log("sessionStorage " +  sessionStorage.myObject);
+function AddItemsToDropDownMenu(i,item, itemIsInTheCart){
+  console.log("found is "+ itemIsInTheCart + "i is "+i);
+       if(itemIsInTheCart!=true ){
+         var divCart = document.getElementById('dropdown-menu');
+         console.log("i<0 " );
+         var div = document.createElement("div");
+          div.innerHTML = '<a id="'+ item.name +'"  class="dropdown-item" href="#">'+ item.name +'  x '+ '1</a>'
+          +'<div class="dropdown-divider"></div>';
+            divCart.appendChild(div);
+        }else {
+          console.log("i >= 0" );
+         var div = document.getElementById(item.name);
+         div.innerHTML= item.name +'  x '+ cartList[i].quantity;
+        }  
+     
 }
+
+
+
+function SaveCart(){
+  if(Object.keys(cartList).length>0){
+  sessionStorage.myObject = JSON.stringify(cartList);
+  GoToCart();
+  console.log("sessionStorage " +  sessionStorage.myObject);
+  }else{
+    alert("Cart is empty");
+  }
+}
+
+
+
+
 
 
 function flyToCart(btnId){
@@ -207,36 +212,4 @@ function GoToCart(){
 location.href = "shopping-cart.html";
 }
 
- function makeIDCarsMenuShow(){
-    var diva = document.getElementById("liDrop");
-    diva.setAttribute("class","nav-item dropdown show");
-
-
-    var divb = document.getElementById("navbarDropdown");
-    divb.setAttribute("aria-expanded","true");
-
-    var divc = document.getElementById("btnDropDown");
-     divc.setAttribute("class","dropdown-menu show");
-
-
-    return false;
-   }
-
-   function myFunction() {
-    document.getElementById("myDropdown").classList.toggle("show");
-}
-
-// Close the dropdown if the user clicks outside of it
-window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
-
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
-    }
-  }
-}
+ 
