@@ -30,7 +30,7 @@
          total = total.plus(temp);
          console.log("total is : " + total);
          
-         div.innerHTML = '<span class="price">' + productPrice + '</span>' +
+         div.innerHTML = '<span class="price">' + temp  + ' XLM</span>' +
              '<p class="item-name">' + productName + '  x ' + quantity + '</p>' +
              ' <p class="item-description"></p>' +
              '</div>'

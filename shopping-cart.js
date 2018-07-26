@@ -139,7 +139,7 @@ function GenerateQrCode() {
 
 
 
-    var url = "https://wtj2pz7f74.execute-api.us-east-1.amazonaws.com/Test/generatememo?appId=" + appId + "&itemHash=" +
+    var url = "https://gjrbh73zr7.execute-api.us-east-1.amazonaws.com/Testing/spggenerateqrcode?appId=" + appId + "&itemHash=" +
         hash + "&itemQuantity=" + quantity+"&notifyMethodNr="+notifyMethodNr.toString();
 
 
@@ -184,6 +184,7 @@ function GenerateQrCode() {
 
     };
     xhttp.open("GET", url, true);
+    xhttp.setRequestHeader('x-api-key',"eKtCM7epTu6MAFU7id1Hq61ndmBTEQ8A27LJ7MHH");
     xhttp.send();
 
     SaveCart();
