@@ -12,7 +12,7 @@ const itemsList = [
 var cartList = []; // is a list of items that were added to cart
 var i = 0;
 var divZero = document.getElementById("grid");
-// WarmLambdaFunctions();
+ WarmLambdaFunctions();
 
 
 function WarmLambdaFunctions() {
@@ -21,13 +21,12 @@ function WarmLambdaFunctions() {
     var xhttp2 = new XMLHttpRequest();
 
 
-    var url1 = "https://gjrbh73zr7.execute-api.us-east-1.amazonaws.com/Testing/spggenerateqrcode?appId=" + "" + "&itemHash=" +
-        "" + "&itemQuantity=" + "" + "&notifyMethodNr=" + "";
+    var url1 = "https://gjrbh73zr7.execute-api.us-east-1.amazonaws.com/Testing/spggenerateqrcode?appId=aa&itemHash="
+        + "&itemQuantity=1&notifyMethodNr=aa";
 
 
-    var url2 = "https://0awnrqg4lg.execute-api.us-east-1.amazonaws.com/Testing/spgconfirmpayment?"
-         +"transactionId=" + "" +
-        "&transactionHash=" + "";
+    var url2 = "https://0awnrqg4lg.execute-api.us-east-1.amazonaws.com/Testing/spgconfirmpayment?transactionId=aa"  +
+        "&transactionHash=aa";
 
 
 
@@ -39,6 +38,7 @@ function WarmLambdaFunctions() {
 
     };
     xhttp1.open("GET", url1, true);
+    xhttp1.setRequestHeader('x-api-key',"eKtCM7epTu6MAFU7id1Hq61ndmBTEQ8A27LJ7MHH");
     xhttp1.send();
 
     xhttp2.onreadystatechange = function() {
@@ -49,6 +49,7 @@ function WarmLambdaFunctions() {
 
     };
     xhttp2.open("GET", url2, true);
+    xhttp2.setRequestHeader('x-api-key',"eKtCM7epTu6MAFU7id1Hq61ndmBTEQ8A27LJ7MHH");
     xhttp2.send();
 
 }
