@@ -9,7 +9,7 @@ const itemsList = [
     { id: "product-8", name: "Chocolate Ice Cream", price: 2.3, hash: "84d740cb3d225c81a41c9d0fd1fc76e80d5e7f8526c30b340ba48739c26f6f2b", quantity: 1 }
 ]
 console.log(StellarSdk);
-var notifyMethodNr = 0;
+var notifyMethodNr = 1;
 
 var obj = sessionStorage.myObject;
 console.log("out if " + obj);
