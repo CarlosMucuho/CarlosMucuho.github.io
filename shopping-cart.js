@@ -104,8 +104,8 @@ function SaveCart() {
 
 function GenerateQrCode() {
 
-
-
+document.getElementById("btnGenerateQr").setAttribute('disabled','disabled');
+btnGenerateQr
     document.getElementById("demo").innerHTML = "Please wait ...";
 
     var to = "";
@@ -139,8 +139,8 @@ function GenerateQrCode() {
 
 
 
-    var url = "https://gjrbh73zr7.execute-api.us-east-1.amazonaws.com/Testing/spggenerateqrcode?appId=" + appId + "&itemHash=" +
-        hash + "&itemQuantity=" + quantity+"&notifyMethodNr="+notifyMethodNr.toString();
+    var url = "https://n2wxrgy685.execute-api.us-east-1.amazonaws.com/testing/spgpygenerateqrcode?appId=" + appId + "&itemHash=" +
+        hash + "&itemQuantity=" + quantity + "&notifyMethodNr=" + notifyMethodNr.toString();
 
 
 
@@ -151,32 +151,38 @@ function GenerateQrCode() {
         if (this.status == 200) {
             // {"memoId":"P2018627522567784806","remainingTime":"34452"}
             if (this.responseText !== "") {
+                console.log(this.responseText);
                 var obj = JSON.parse(this.responseText);
-                document.getElementById("demo").innerHTML = " transactionId:" + obj.transactionId + " duration: " + obj.duration + " ms";
-
-                tId = String(obj.transactionId);
-                amount = String(obj.amount);
-                to = String(obj.destination);
-
-
-                data = tId + "/" + amount + "/" + to;
                 if (obj.transactionId !== null && y > 0) {
 
+                    
+                    console.log(obj)
+                    if (obj.status == "all went fine") {
+                        document.getElementById("demo").innerHTML = " transactionId :" +
+                            obj.transactionId + "   duration: " + obj.duration + " ms";
+
+                        tId = String(obj.transactionId);
+                        amount = String(obj.amount);
+                        to = String(obj.destination);
+
+
+                        data = tId + "/" + amount + "/" + to;
 
 
 
 
+                        jQuery('#qrcode').qrcode({ width: 180, height: 180, text: data });
 
-                    jQuery('#qrcode').qrcode({ width: 180, height: 180, text: data });
+                        if (notifyMethodNr === 0) {
+                            ListenForConfirmationWithPusher(obj.transactionId);
+                        } else {
+                            ListenForConfirmationWithStellar(obj.transactionId);
+                        }
 
-                    if(notifyMethodNr===0){
-                        ListenForConfirmationWithPusher(obj.transactionId);
-                    }else{
-                        ListenForConfirmationWithStellar(obj.transactionId);
+
                     }
-                    
-                    
-
+                } else {
+                    document.getElementById("demo").innerHTML = "status: " + obj.status;
                 }
                 y++;
             }
@@ -184,7 +190,7 @@ function GenerateQrCode() {
 
     };
     xhttp.open("GET", url, true);
-    xhttp.setRequestHeader('x-api-key',"eKtCM7epTu6MAFU7id1Hq61ndmBTEQ8A27LJ7MHH");
+    xhttp.setRequestHeader('x-api-key', "eKtCM7epTu6MAFU7id1Hq61ndmBTEQ8A27LJ7MHH");
     xhttp.send();
 
     SaveCart();
@@ -256,7 +262,7 @@ function ListenForConfirmationWithStellar(transactionId) {
 
 }
 
-function ChooseNotifyMethod(nr){
+function ChooseNotifyMethod(nr) {
     notifyMethodNr = nr;
     console.log(notifyMethodNr);
 }

@@ -12,7 +12,7 @@ const itemsList = [
 var cartList = []; // is a list of items that were added to cart
 var i = 0;
 var divZero = document.getElementById("grid");
- WarmLambdaFunctions();
+ // WarmLambdaFunctions();
 
 
 function WarmLambdaFunctions() {
@@ -21,7 +21,7 @@ function WarmLambdaFunctions() {
     var xhttp2 = new XMLHttpRequest();
 
 
-    var url1 = "https://gjrbh73zr7.execute-api.us-east-1.amazonaws.com/Testing/spggenerateqrcode?appId=aa&itemHash="
+    var url1 = "https://n2wxrgy685.execute-api.us-east-1.amazonaws.com/testing/spgpygenerateqrcode?appId=aa&itemHash="
         + "&itemQuantity=1&notifyMethodNr=aa";
 
 
@@ -37,9 +37,9 @@ function WarmLambdaFunctions() {
         }
 
     };
-    xhttp1.open("GET", url1, true);
-    xhttp1.setRequestHeader('x-api-key',"eKtCM7epTu6MAFU7id1Hq61ndmBTEQ8A27LJ7MHH");
-    xhttp1.send();
+    // xhttp1.open("GET", url1, true);
+    // // xhttp1.setRequestHeader('x-api-key',"eKtCM7epTu6MAFU7id1Hq61ndmBTEQ8A27LJ7MHH");
+    // xhttp1.send();
 
     xhttp2.onreadystatechange = function() {
 
