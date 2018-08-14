@@ -22,16 +22,26 @@
         </button>
         <div class="collapse navbar-collapse " " id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
-                <!-- <li class="nav-item active">
-                    <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
-                </li> -->
+                 <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> NetworkType
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <a  class="dropdown-item" onclick="ChooseNetworkAndAsset('XLM','test')">XLM (Test net)</a>
+                       <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" onclick="ChooseNetworkAndAsset('XLM','live')">XLM (Live net)</a>
+                      <a class="dropdown-item" onclick="ChooseNetworkAndAsset('RMT','live')">RMT (Live net)</a>
+                      <a class="dropdown-item" onclick="ChooseNetworkAndAsset('MOBI','live')">MOBI (Live net)</a>
+                       <a class="dropdown-item" onclick="ChooseNetworkAndAsset('SLT','live')">SLT (Live net)</a>
+                      
+                    </div>
+                  </li>
                 <div class="btn-group btn-group-toggle" data-toggle="buttons">
-  <label class="btn btn-primary" onclick="ChooseNotifyMethod(0)">
-    <input type="radio" name="options" id="option2" autocomplete="off"  >Pusher
-  </label>
-  <label class="btn btn-primary active" onclick="ChooseNotifyMethod(1)">
-    <input type="radio" name="options" id="option1" autocomplete="off" checked>Stellar
-  </label>
+                  <label class="btn btn-primary" onclick="ChooseNotifyMethod(0)">
+                    <input type="radio" name="options" id="option2" autocomplete="off"  >Pusher
+                  </label>
+                  <label class="btn btn-primary active" onclick="ChooseNotifyMethod(1)">
+                    <input type="radio" name="options" id="option1" autocomplete="off" checked>Stellar
+                  </label>
   
 </div>
                 </div>
@@ -53,7 +63,7 @@
 			 					<div  class="summary-item "><span class="text ">Subtotal</span><span id="total1" class="price ">-</span></div>
 			 					<div class="summary-item "><span class="text ">Discount</span><span class="price ">-</span></div>
 			 					<div class="summary-item "><span class="text ">Delivery fee</span><span class="price ">-</span></div>
-			 					<div  class="summary-item "><span class="text ">Total</span><span id="total2" class="price ">-</span></div>
+			 					<div   class="summary-item "><span class="text ">Total</span><span id="total2" class="price ">-</span></div>
 			 					<!-- <button id="total3 " type="button " class="btn btn-primary btn-lg btn-block ">Checkout</button> -->
 				 			</div>
 			 		    </div>
@@ -66,11 +76,11 @@
     <section class="payment-form dark ">
         <div class="block-heading ">
           <h2>Pay with stellar</h2>
-
+        
                <button id="btnGenerateQr" class="btn btn-primary" style="margin-bottom:20px" >Generate QR Code</button>
-                <div class="qrSection" style="margin-bottom:20px">
+                <div class="qrSection" style="margin-bottom:5px">
               <div id="demo" color="green " style="margin-bottom:20px"></div>
-              <div id="qrcode"  style="margin-bottom:10px"></div>
+              <div id="qrcode"  style="margin-bottom:5px"></div>
               </div>
            
             

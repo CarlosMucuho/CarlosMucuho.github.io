@@ -9,6 +9,19 @@ const itemsList = [
     { id: "product-8", name: "Chocolate Ice Cream", price: 2.3, hash: "84d740cb3d225c81a41c9d0fd1fc76e80d5e7f8526c30b340ba48739c26f6f2b", quantity: 1 }
 ]
 
+
+// const itemsList = [
+//     { id: "product-1", name: "Hamburger", price: 0.0005, hash: "ccc7228d81b05865f5278dcac0179c16a976757e3a1f279065ea79babb5e3fa1", quantity: 1 },
+//     { id: "product-2", name: "French Fries", price: 0.0003, hash: "bf3d6e8c9c72d146c52ea116577ac483a5b5d99db8b9bcb87918f216cbb8541e", quantity: 1 },
+//     { id: "product-3", name: "Hot dog", price: 0.0005, hash: "8c41fea6d1956bdb961abb47720a400021b13466f03fd7e1874ccbb76751f6ca", quantity: 1 },
+//     { id: "product-4", name: "Pizza slice", price: 0.0037, hash: "03f06457b5cfb7ca2ea6b031913783373af658691139f31f6db7456a85786aaf", quantity: 1 },
+//     { id: "product-5", name: "Orange juice", price: 0.0074, hash: "14b6bb86399252c6374ba0e57979b0e04077b3738f878c90c066b4873c9f961a", quantity: 1 },
+//     { id: "product-6", name: "Strawberry juice", price: 0.0001, hash: "2df7dbc884d2f21bf8c37e0f88bf9a830756b25d8db1725c8cb787051f49a84b", quantity: 1 },
+//     { id: "product-7", name: "Vanilla Ice Cream", price: 0.0003, hash: "94d30d51491620483103007287a021a369c10c5049b2622127fdcece9e80e0af", quantity: 1 },
+//     { id: "product-8", name: "Chocolate Ice Cream", price: 0.0074, hash: "14b6bb86399252c6374ba0e57979b0e04077b3738f878c90c066b4873c9f961a", quantity: 1 }
+// ]
+
+
 var cartList = []; // is a list of items that were added to cart
 var i = 0;
 var divZero = document.getElementById("grid");

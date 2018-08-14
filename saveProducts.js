@@ -171,7 +171,7 @@ console.log(StellarSdk);
                  console.log("x is" )
                  console.log("Success! " + itemName + " ," + productName + " : " + result.hash);
                  data.push(result.hash);
-                 hashField[0].value=result.hash;
+                 // hashField[0].value=result.hash;
                   GetAllInputs();
                   
              })
