@@ -21,7 +21,7 @@
          'placeholder="Product Name" aria-label="Product Name" aria-describedby="basic-addon1">' +
          '  <label for="card-holder">Hash</label>' +
          '  <input id="Product Hash" name="productHash-' + itemNr + '"  type="text" class="form-control ' + itemNr + ' 1"' +
-         'placeholder="Product Hash"" aria-label="Hash" aria-describedby="basic-addon1">' +
+         'placeholder="This field will be filled after you save the products" aria-label="Hash" aria-describedby="basic-addon1">' +
          ' </div>' +
          ' <div class="form-group col-sm-8">' +
          ' <label for="item-name">Item Name</label>' +
